@@ -202,6 +202,8 @@
         <div id="sim-controls">
             <button onclick="togglePause()" id="btn-pause">⏸</button>
             <button onclick="restartTutorial()" title="튜토리얼 다시보기">❓</button>
+            <!-- [NEW] 오디오 버튼 수정 -->
+            <button onclick="toggleAudio()" id="btn-audio" title="BGM On/Off">🔇</button>
             <button onclick="triggerSpaceDance()" id="btn-space-dance" title="우주 댄스 파티!">🛸</button>
         </div>
     </div>
@@ -271,6 +273,24 @@
     let isSpaceMode = false;
     let spaceModeTimer = 0;
     
+    // [NEW] 오디오 객체
+    const bgm = new Audio('sounds/main.mp3');
+    bgm.loop = true;
+    let isBgmOn = false;
+
+    function toggleAudio() {
+        const btn = document.getElementById('btn-audio');
+        if (isBgmOn) {
+            bgm.pause();
+            btn.innerText = '🔇';
+            isBgmOn = false;
+        } else {
+            bgm.play().catch(e => console.log('Autoplay blocked', e));
+            btn.innerText = '🔊';
+            isBgmOn = true;
+        }
+    }
+
     const keys = { w: false, a: false, s: false, d: false, ArrowUp: false, ArrowLeft: false, ArrowDown: false, ArrowRight: false, ' ': false, x: false };
     let selectedHuman = null;
 
